@@ -1,0 +1,21 @@
+cloudflare:
+  token_env: CLOUDFLARE_API_TOKEN
+
+settings:
+  ip_check_interval: 60s
+  nginx_generated_dir: /etc/nginx/sites-enabled
+
+zones:
+  - domain: example.com
+    records:
+      - name: api.dev
+        type: A
+        ip: auto
+        proxied: true
+        nginx:
+          target: 127.0.0.1:3000
+          websocket: true
+      - name: "@"
+        type: A
+        ip: 192.0.2.10
+        proxied: false
